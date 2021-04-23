@@ -73,6 +73,12 @@ public class CCSocketClient: NSObject {
         socket.close()
     }
 
+    public func destory() {
+        destorySocket()
+        destoryTimer()
+        resetCount()
+    }
+
     // MARK: - 私有方法
     /// 初始化socket
     private func initSocket() {
@@ -134,7 +140,7 @@ public class CCSocketClient: NSObject {
         }
 
 
-        guard webSocket?.readyState == SRReadyState.OPEN, var message = overtimeMessages.first else {
+        guard webSocket?.readyState == SRReadyState.OPEN, let message = overtimeMessages.first else {
             return
         }
         if Date().timeIntervalSince1970 > message.time {//超时重传
@@ -221,7 +227,7 @@ extension CCSocketClient {
         let error = self.sendJSON(json)
         if error == nil {
             let time = Date(timeIntervalSinceNow: self.socketOption.ackTimeout).timeIntervalSince1970
-            let message = CCMessage(time: time, messageID: msgID, json: json)
+            let message = CCMessage.init(time: time, messageID: msgID, json: json)
             overtimeMessages.append(message)
             return msgID
         } else {
