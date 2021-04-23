@@ -1,0 +1,7 @@
+CCWebSocket.xcodeproj/xcuserdata/
+CCWebSocket.xcworkspace/
+Pods/
+*.swp
+Podfile.lock
+.DS_Store
+CCWebSocket.xcodeproj/project.xcworkspace/xcuserdata/
